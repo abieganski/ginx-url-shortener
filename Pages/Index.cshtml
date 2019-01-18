@@ -1,0 +1,156 @@
+﻿@page
+@using ginx.me.Config
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-all100">
+            <div class="wrap-shorten100">
+                <form class="shorten100-form">
+                    <span class="login100-form-title">
+                        Paste your URL below
+                    </span>
+
+                    <div>
+                        <div class="wrap-input90 validate-input" data-validate="Valid URL is required">
+                            <input id="original-url" class="input100" type="text" name="url" placeholder="URL">
+                            <span class="focus-input100"></span>
+                            <span class="symbol-input100">
+                                <i class="fa fa-link" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        <div class="wrap-button100">
+                            <button id="play-button" class="button-input100">
+                                <i class="fa fa-play" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="wrap-shortened100">
+                    <ul id="shortened-history">
+                        <li>
+                            <div class="wrap-input100">
+                                <div class="shortened100">
+                                    <div>http://ginx.me/abjsSSh2</div>
+                                    <div>http://ginx.me/abjsSSh2</div>
+
+                                </div>
+                                <span class="symbol-input100">
+                                    <img src="images/star.png">
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="wrap-login100">
+                <div class="login100-pic js-tilt" data-tilt>
+                    <img src="images/G-logo.png" alt="logo">
+                </div>
+
+                <form class="login100-form validate-form">
+                    <span class="login100-form-title">
+                        Member Login
+                    </span>
+
+                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                        <input class="input100" type="text" name="email" placeholder="Email">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Password is required">
+                        <input class="input100" type="password" name="pass" placeholder="Password">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                        </span>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn">
+                            Login
+                        </button>
+                    </div>
+
+                    <div class="text-center p-t-12">
+                        <span class="txt1">
+                            Forgot
+                        </span>
+                        <a class="txt2" href="#">
+                            Username / Password?
+                        </a>
+                    </div>
+
+                    <div class="text-center p-t-36">
+                        <a class="txt2" href="#">
+                            Create your Account
+                            <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--===============================================================================================-->
+<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/bootstrap/js/popper.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/tilt/tilt.jquery.min.js"></script>
+<script>
+    $('.js-tilt').tilt({
+        scale: 1.1
+    })
+</script>
+<!--===============================================================================================-->
+<script src="js/main.js"></script>
+
+
+<script>
+
+    var sh = '@Settings.Current.ShorterUrlFullUrl';
+
+    $(
+        function () {
+            $('#play-button').click(
+                function (e) {
+                    e.preventDefault();
+                    var data = {
+                        originalurl: $('#original-url').val()
+                    }
+
+                    $.ajax({
+                        url: sh,
+                        method: "POST",
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        data: JSON.stringify(data)
+                    })
+                    .done(function (result) {
+                        console.log('success', result)
+                    })
+                    .fail(function (xhr) {
+                        console.log('error', xhr);
+                    });
+                }
+            )
+        }
+    )
+
+</script>
